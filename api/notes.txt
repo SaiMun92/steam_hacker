@@ -1,0 +1,23 @@
+new SteamAPI(key, [options])
+steamAPI.get(path, [base], [key]) ⇒ Promise.<Object>
+steamAPI.resolve(info) ⇒ Promise.<string>
+steamAPI.getAppList() ⇒ Promise.<Array.<App>>
+steamAPI.getFeaturedCategories() ⇒ Promise.<Array.<Object>>
+steamAPI.getFeaturedGames() ⇒ Promise.<Object>
+steamAPI.getGameAchievements(app) ⇒ Promise.<Object>
+steamAPI.getGameDetails(app, [force]) ⇒ Promise.<Object>
+steamAPI.getGameNews(app) ⇒ Promise.<Array.<Object>>
+steamAPI.getGamePlayers(app) ⇒ Promise.<number>
+steamAPI.getGameSchema(app) ⇒ Promise.<Object>
+steamAPI.getServers(host) ⇒ Promise.<Array.<Server>>
+- steamAPI.getUserAchievements(id, app) ⇒ Promise.<PlayerAchievements>
+- steamAPI.getUserBadges(id) ⇒ Promise.<PlayerBadges>
+steamAPI.getUserBans(id) ⇒ Promise.<(PlayerBans|Array.<PlayerBans>)>
+- steamAPI.getUserFriends(id) ⇒ Promise.<Array.<Friend>>
+steamAPI.getUserGroups(id) ⇒ Promise.<Array.<string>>
+x steamAPI.getUserLevel(id) ⇒ Promise.<number>
+- steamAPI.getUserOwnedGames(id) ⇒ Promise.<Array.<Game>>
+- steamAPI.getUserRecentGames(id) ⇒ Promise.<Array.<RecentGame>>
+steamAPI.getUserServers([hide], [key]) ⇒ Promise.<PlayerServers>
+steamAPI.getUserStats(id, app) ⇒ Promise.<PlayerStats>
+- steamAPI.getUserSummary(id) ⇒ Promise.<PlayerSummary>
