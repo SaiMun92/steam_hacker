@@ -40,7 +40,7 @@ class App extends React.Component {
   }
 
   async execute() {
-    const userdata = await axios.get(`http://localhost:9000/steam//user-summary/${this.state.input}`);
+    const userdata = await axios.get(`/steam/user-summary/${this.state.input}`);
     console.log(userdata);
 
     // do something about the returned data;
@@ -69,7 +69,7 @@ class App extends React.Component {
               onChange={(event) => this.setState({ input: event.target.value })}
               onKeyPress={this.enterPressed.bind(this)}
             />
-            <IconButton className={classes.iconBuWtton} aria-label="Search" onClick={this.execute}>
+            <IconButton className={classes.iconButton} aria-label="Search" onClick={this.execute}>
               <SearchIcon />
             </IconButton>
           </Paper>
