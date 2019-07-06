@@ -1,54 +1,53 @@
-/*
-Probably best if i use the traditional kind of way
-*/
-
-import React, { Component} from 'react';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import DeleteIcon from '@material-ui/icons/Delete';
-import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutlined';
-import SearchIcon from "@material-ui/icons/Search";
-import DeleteRoundedIcon from '@material-ui/icons/DeleteRounded';
-import DeleteTwoToneIcon from '@material-ui/icons/DeleteTwoTone';
-import DeleteSharpIcon from '@material-ui/icons/DeleteSharp';
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-import DeleteForeverOutlinedIcon from '@material-ui/icons/DeleteForeverOutlined';
-import DeleteForeverRoundedIcon from '@material-ui/icons/DeleteForeverRounded';
-import DeleteForeverTwoToneIcon from '@material-ui/icons/DeleteForeverTwoTone';
-import DeleteForeverSharpIcon from '@material-ui/icons/DeleteForeverSharp';
-import ThreeDRotationIcon from '@material-ui/icons/ThreeDRotation';
-import FourKIcon from '@material-ui/icons/FourK';
-import ThreeSixtyIcon from '@material-ui/icons/ThreeSixty';
 import { makeStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import InputBase from '@material-ui/core/InputBase';
+import Divider from '@material-ui/core/Divider';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+import SearchIcon from '@material-ui/icons/Search';
+import DirectionsIcon from '@material-ui/icons/Directions';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles({
   root: {
-    color: theme.palette.text.primary,
+    padding: '2px 4px',
+    display: 'flex',
+    alignItems: 'center',
+    width: 400,
   },
-  icon: {
-    margin: theme.spacing(1),
-    fontSize: 32,
+  input: {
+    marginLeft: 8,
+    flex: 1,
   },
-}));
+  iconButton: {
+    padding: 10,
+  },
+  divider: {
+    width: 1,
+    height: 28,
+    margin: 4,
+  },
+});
 
+export default function CustomizedInputBase() {
+  const classes = useStyles();
 
-class SvgMaterialIcons extends Component {
-
-  classes = useStyles();
-  render() {
-    return (
-        <Grid container className={this.classes.root}>
-          <Grid item xs={4}>
-            <Typography>Filled</Typography>
-          </Grid>
-          <Grid item xs={8}>
-            <DeleteIcon className={this.classes.icon} />
-            <DeleteForeverIcon className={this.classes.icon} />
-            <SearchIcon className={this.classes.icon} />
-          </Grid>
-        </Grid>
-      );
-  }
+  return (
+    <Paper className={classes.root}>
+      <IconButton className={classes.iconButton} aria-label="Menu">
+        <MenuIcon />
+      </IconButton>
+      <InputBase
+        className={classes.input}
+        placeholder="Search Google Maps"
+        inputProps={{ 'aria-label': 'Search Google Maps' }}
+      />
+      <IconButton className={classes.iconButton} aria-label="Search">
+        <SearchIcon />
+      </IconButton>
+      <Divider className={classes.divider} />
+      <IconButton color="primary" className={classes.iconButton} aria-label="Directions">
+        <DirectionsIcon />
+      </IconButton>
+    </Paper>
+  );
 }
-
-export default SvgMaterialIcons;
