@@ -7,8 +7,9 @@ import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
 import axios from 'axios';
 import './App.css';
+import UserProfile from './UserProfile';
 
-const useStyles = {
+const useStyles = theme => ({
   root: {
     padding: '2px 4px',
     display: 'flex',
@@ -27,13 +28,14 @@ const useStyles = {
     height: 28,
     margin: 4,
   },
-};
+});
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       input: '',
+      userdata: null,
     };
 
     this.execute = this.execute.bind(this);
@@ -41,9 +43,9 @@ class App extends React.Component {
 
   async execute() {
     const userdata = await axios.get(`/steam/user-summary/${this.state.input}`);
+    this.setState({ userdata: userdata.data });
     console.log(userdata);
 
-    // do something about the returned data;
   }
 
   enterPressed(event) {
@@ -57,10 +59,16 @@ class App extends React.Component {
   render() {
     const { classes } = this.props;
     
+    let userProfile;
+
+    if (this.state.userdata) {
+      userProfile = <UserProfile user={this.state.input} data={this.state.userdata}/>
+    }
+
     return (
       <div className="App">
-        <header className="App-header">
-          {/* Search Bar */}
+
+        <div className="search-bar">
           <Paper className={classes.root}>
             <InputBase
               className={classes.input}
@@ -73,7 +81,11 @@ class App extends React.Component {
               <SearchIcon />
             </IconButton>
           </Paper>
-        </header>
+        </div>
+
+        <div className="App-components">
+          {userProfile}
+        </div>
       </div>
     );
   }
