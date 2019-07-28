@@ -7,7 +7,8 @@ import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
 import axios from 'axios';
 import './App.css';
-import UserProfile from './UserProfile';
+import UserProfile from './modules/UserProfile';
+import RecentGames from './modules/RecentGames';
 
 const useStyles = theme => ({
   root: {
@@ -36,6 +37,7 @@ class App extends React.Component {
     this.state = {
       input: '',
       userdata: null,
+      recentGames: false,
     };
 
     this.execute = this.execute.bind(this);
@@ -44,8 +46,40 @@ class App extends React.Component {
   async execute() {
     const userdata = await axios.get(`/steam/user-all/${this.state.input}`);
     this.setState({ userdata: userdata });
+
+    if (this.state.userdata.data.recentGames.length > 0) {
+      this.setState({ recentGames: true });
+    } else {
+      this.setState({ recentGames: false });
+    }
     console.log(userdata);
 
+  }
+
+  renderRecentGames() {
+    if (this.state.recentGames) {
+      let recentGames = this.state.userdata.data.recentGames;
+      
+      return (
+        <div className="App-components">
+          {recentGames.map((item, key) => (
+            <React.Fragment key={key}>
+              <RecentGames data={item} />
+            </React.Fragment>
+          ))}
+        </div>
+      );
+    }
+  }
+  
+  renderUserInfo() {
+    if (this.state.userdata) {
+      return (
+        <div className="App-components">
+          {<UserProfile user={this.state.input} data={this.state.userdata.data.summary}/>}
+        </div>
+      );
+    }
   }
 
   enterPressed(event) {
@@ -77,9 +111,10 @@ class App extends React.Component {
           </Paper>
         </div>
 
-        <div className="App-components">
-          {this.state.userdata && <UserProfile user={this.state.input} data={this.state.userdata}/>}
-        </div>
+
+        {this.renderUserInfo()}
+        {this.renderRecentGames()}
+
       </div>
     );
   }

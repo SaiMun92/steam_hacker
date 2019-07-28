@@ -10,16 +10,19 @@ var steam = new SteamAPI('0693EFD0257BE02F03DF6CF8BC57986D');
 router.get('/user-all/:name', async function(req, res) {
     try  {
         let id = await steam.resolve(`https://steamcommunity.com/id/${req.params.name}`);
+        console.log(id);
         let summary = await steam.getUserSummary(id);
         let ownedGames = await steam.getUserOwnedGames(id);
         let userFriends = await steam.getUserFriends(id);
         let userBadges = await steam.getUserBadges(id);
+        let recentGames = await steam.getUserRecentGames(id);
         
         res.send({
             'summary': summary,
-            'ownedGames': ownedGames,
+            'ownedGames': ownedGames, 
             'userFriends': userFriends,
-            'userBadges': userBadges
+            'userBadges': userBadges,
+            'recentGames': recentGames,
         });
     } catch (err) {
         console.log("Error occurerd in one of the api calls: ", err);

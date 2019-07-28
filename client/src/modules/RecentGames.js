@@ -9,23 +9,37 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+function convertMins(mins) {
+    if (mins < 60) return mins + " mins"
+
+    else {
+        let rhours = Math.floor(mins/60);
+        let rmins = Math.round(mins/60);
+
+        return rhours + " Hr" + rmins + " Mins";
+    }
+
+}
+
 export default function PaperSheet(props) {
   const classes = useStyles();
 
+  console.log(props);
+  // Convert mins to (hr, mins)
+  let playTime2 = convertMins(props.data.playTime2);
+  let playTime = convertMins(props.data.playTime);
+  
   return (
     <div>
       <Paper className={classes.root}>
         <Typography variant="h5" component="h3">
-            {props.user}
+            Game: {props.data.name}
         </Typography>
         <Typography component="p">  
-            Nickname: {props.data.nickname}
+            Time played(last 2 weeks): {playTime2}
         </Typography>
         <Typography component="p">  
-            url: <a href={props.data.url} target="_blank">{props.data.url}</a>
-        </Typography>
-        <Typography component="p">  
-            Last log off: {props.data.lastLogOff}
+            Total Time played: {playTime}
         </Typography>
       </Paper>
     </div>
