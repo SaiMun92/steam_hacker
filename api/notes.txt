@@ -21,3 +21,5 @@ x steamAPI.getUserLevel(id) ⇒ Promise.<number>
 steamAPI.getUserServers([hide], [key]) ⇒ Promise.<PlayerServers>
 steamAPI.getUserStats(id, app) ⇒ Promise.<PlayerStats>
 - steamAPI.getUserSummary(id) ⇒ Promise.<PlayerSummary>
+
+//https://www.freecodecamp.org/news/create-a-react-frontend-a-node-express-backend-and-connect-them-together-c5798926047c/

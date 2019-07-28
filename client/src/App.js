@@ -42,8 +42,8 @@ class App extends React.Component {
   }
 
   async execute() {
-    const userdata = await axios.get(`/steam/user-summary/${this.state.input}`);
-    this.setState({ userdata: userdata.data });
+    const userdata = await axios.get(`/steam/user-all/${this.state.input}`);
+    this.setState({ userdata: userdata });
     console.log(userdata);
 
   }
@@ -58,12 +58,6 @@ class App extends React.Component {
  
   render() {
     const { classes } = this.props;
-    
-    let userProfile;
-
-    if (this.state.userdata) {
-      userProfile = <UserProfile user={this.state.input} data={this.state.userdata}/>
-    }
 
     return (
       <div className="App">
@@ -84,7 +78,7 @@ class App extends React.Component {
         </div>
 
         <div className="App-components">
-          {userProfile}
+          {this.state.userdata && <UserProfile user={this.state.input} data={this.state.userdata}/>}
         </div>
       </div>
     );

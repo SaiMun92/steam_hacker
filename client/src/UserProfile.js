@@ -22,7 +22,7 @@ export default function PaperSheet(props) {
             Nickname: {props.data.nickname}
         </Typography>
         <Typography component="p">  
-            url: {props.data.url}
+            url: <a href={props.data.url} target="_blank">{props.data.url}</a>
         </Typography>
         <Typography component="p">  
             Last log off: {props.data.lastLogOff}

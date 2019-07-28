@@ -5,9 +5,32 @@ var router = express.Router();
 var SteamAPI = require('steamapi');
 var steam = new SteamAPI('0693EFD0257BE02F03DF6CF8BC57986D');
 
+
+// Get all info
+router.get('/user-all/:name', async function(req, res) {
+    try  {
+        let id = await steam.resolve(`https://steamcommunity.com/id/${req.params.name}`);
+        let summary = await steam.getUserSummary(id);
+        let ownedGames = await steam.getUserOwnedGames(id);
+        let userFriends = await steam.getUserFriends(id);
+        let userBadges = await steam.getUserBadges(id);
+        
+        res.send({
+            'summary': summary,
+            'ownedGames': ownedGames,
+            'userFriends': userFriends,
+            'userBadges': userBadges
+        });
+    } catch (err) {
+        console.log("Error occurerd in one of the api calls: ", err);
+    }
+});
+
+
 // Get the User
 router.get('/user-summary/:name', function(req, res, next) {
     steam.resolve(`https://steamcommunity.com/id/${req.params.name}`).then(id => {
+        console.log(typeof id);
         steam.getUserSummary(id).then(summary => {
             res.send(summary);
         });
@@ -35,9 +58,13 @@ router.get('/getfriends/:id', function(req, res, next) {
     });
 });
 
-router.get('/getachievements/:id', function(req, res, next) {
-    steam.getUserAchievements(`${req.params.id}`).then(summary => {
+// this needs id and app id
+router.get('/getachievements/:id/:app', function(req, res, next) {
+    console.log(req.params.id);
+    steam.getUserAchievements(`${req.params.id}, ${req.params.app}`).then(summary => {
         res.send(summary);
+    }).catch (err => {
+        console.log("Something wrong with get achievements: ", err);
     });
 });
 
